@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bben.mapper.UserMapper1" >   <!--指定mapper位置-->
+
+    <resultMap id="BaseResultMap" type="com.bben.entity.User" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="userName" property="userName" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >id, userName</sql>
+
+    <select id="findAll" resultMap="BaseResultMap"  >
+       SELECT 
+       <include refid="Base_Column_List" />
+	   FROM user
+    </select>
+
+    <select id="findOne" resultMap="BaseResultMap">
+        SELECT * FROM user WHERE id=#{id}
+    </select>
+    
+    <insert id="addOne">
+        INSERT INTO user(userName) VALUES (#{userName})
+    </insert>
+
+    <update id="updateOne">
+        UPDATE user SET userName=#{userName}WHERE id=#{id}
+    </update>
+
+    <delete id="delOne">
+        DELETE FROM user WHERE id=#{id}
+    </delete>
+
+    <select id="findByPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+    </select>
+
+</mapper>
