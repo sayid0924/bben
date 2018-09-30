@@ -4,6 +4,7 @@ import com.apidoc.annotation.Table;
 
 @Table("ReqPageInfo")
 public class ReqPageInfo {
+
     private  int start;
     private  int end;
 
@@ -22,5 +23,6 @@ public class ReqPageInfo {
     public void setEnd(int end) {
         this.end = end;
     }
+
 
 }

@@ -37,7 +37,6 @@ public class MainController {
     private UserService personService;
 
     @ApiAction(name = "查询所有数据", mapping = "all", method = Method.GET)
-
     @ApiRespParams({
             @ApiParam(name = "code", dataType = DataType.NUMBER, defaultValue = "0", description = "状态编码"),
             @ApiParam(name = "message", dataType = DataType.STRING, defaultValue = "操作成功", description = "提示信息"),
@@ -59,13 +58,24 @@ public class MainController {
     }
 
     @ApiAction(name = "查询分页数据", mapping = "page", method = Method.GET)
-    @ApiReqParams(type = ParamType.JSON, value = {@ApiParam(value = ReqPageInfo.class)})
+    @ApiReqParams(type = ParamType.JSON,  value = {
+            @ApiParam(name = "start", dataType = DataType.STRING, defaultValue = "", description = "起始item",required = true),
+            @ApiParam(name = "end", dataType = DataType.STRING, defaultValue = "", description = "返回总item",required = true)
+    })
+
     @ApiRespParams({
             @ApiParam(name = "code", dataType = DataType.NUMBER, defaultValue = "0", description = "状态编码"),
             @ApiParam(name = "message", dataType = DataType.STRING, defaultValue = "操作成功", description = "提示信息"),
             @ApiParam(name = "datas", dataType = DataType.OBJECT, defaultValue = "null", description = "响应数据", object = "user"),
-            @ApiParam(name = "id", dataType = DataType.NUMBER,description = "ID",belongTo = "user"),
-            @ApiParam(name = "name", dataType = DataType.STRING,description = "姓名",belongTo = "user")
+            @ApiParam(name = "pageNum", dataType = DataType.NUMBER,description = "当前页",belongTo = "user"),
+            @ApiParam(name = "pageSize", dataType = DataType.NUMBER,description = "每页的数量",belongTo = "user"),
+            @ApiParam(name = "pages", dataType = DataType.NUMBER,description = "总页数",belongTo = "user"),
+            @ApiParam(name = "total", dataType = DataType.NUMBER,description = "总记录数",belongTo = "user"),
+            @ApiParam(name = "list", dataType = DataType.OBJECT,description = "",object = "data",belongTo = "user"),
+            @ApiParam(name = "id", dataType = DataType.NUMBER,description = "ID",belongTo = "data"),
+            @ApiParam(name = "name", dataType = DataType.STRING,description = "姓名",belongTo = "data"),
+            @ApiParam(name = "isLastPage", dataType = DataType.NUMBER,description = "是否为最后一页",belongTo = "user"),
+            @ApiParam(name = "isFirstPage", dataType = DataType.NUMBER,description = "是否为第一页",belongTo = "user")
     })
 
     @RequestMapping("/page")
@@ -77,7 +87,6 @@ public class MainController {
         JSONObject json = new JSONObject();
         json.put("datas", BaseResult.success(page));
         return json;
-
     }
 
     @RequestMapping("/find")
@@ -90,7 +99,6 @@ public class MainController {
             e.printStackTrace();
         }
         return json;
-
     }
 
     @RequestMapping("/add")
@@ -103,7 +111,6 @@ public class MainController {
             e.printStackTrace();
         }
         return json;
-
     }
 
     @RequestMapping("/update")
