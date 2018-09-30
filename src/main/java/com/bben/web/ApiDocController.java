@@ -26,22 +26,41 @@ public class ApiDocController {
     private boolean openApiDoc;
 
     //数据源配置
+    /**
+     * 数据库驱动
+     */
     @Value("${spring.datasource.driver-class-name}")
-    private String driver;//数据库驱动
+    private String driver;
+
+    /**
+     * 数据源连接
+     */
     @Value("${spring.datasource.url}")
-    private String url;//数据源连接
+    private String url;
+
+    /**
+     * 数据库用户名
+     */
     @Value("${spring.datasource.username}")
-    private String userName;//数据库用户名
+    private String userName;
+
+    /**
+     * 数据库密码
+     */
     @Value("${spring.datasource.password}")
-    private String password;//数据库密码
-    private String dataBaseName = "test" +
-            "";//数据库名
+    private String password;
+
+    /**
+     * 数据库名
+     */
+    private String dataBaseName = "test" +"";
 
     /**
      * 后台管理系统文档
      * <p>
      * 返回文档基本信息和目录
      */
+
     @GetMapping("/api")
     public ApiDoc admin() {
         //是否打开文档功能
@@ -49,8 +68,10 @@ public class ApiDocController {
             ApiDoc apiDoc;
             //后台管理系统
                 String packageName = "com.bben.controller";
-                apiDoc = new GeneratorApiDoc().setInfo(new ApiDocInfo().setTitle("博本医疗系统后台管理文档")).generator(packageName);
-//            System.err.println(JsonUtil.toString(apiDoc));
+                apiDoc = new GeneratorApiDoc().setInfo(new ApiDocInfo().setTitle("博本医疗系统后台管理文档")
+                        .setVersion("1.0")
+                        .setDescription("")
+                ).generator(packageName);
             return apiDoc;
         } else {
             return null;
@@ -72,5 +93,6 @@ public class ApiDocController {
                 .getApiOfMethod(methodUUID);
         System.err.println(JsonUtil.toString(detail));
         return detail;
+
     }
 }

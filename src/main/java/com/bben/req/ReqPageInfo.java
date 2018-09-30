@@ -22,4 +22,5 @@ public class ReqPageInfo {
     public void setEnd(int end) {
         this.end = end;
     }
+
 }

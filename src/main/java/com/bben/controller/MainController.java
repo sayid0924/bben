@@ -36,7 +36,8 @@ public class MainController {
     @Autowired
     private UserService personService;
 
-    @ApiAction(name = "查询所有数据", order = 2, mapping = "all", method = Method.GET)
+    @ApiAction(name = "查询所有数据", mapping = "all", method = Method.GET)
+
     @ApiRespParams({
             @ApiParam(name = "code", dataType = DataType.NUMBER, defaultValue = "0", description = "状态编码"),
             @ApiParam(name = "message", dataType = DataType.STRING, defaultValue = "操作成功", description = "提示信息"),
@@ -46,6 +47,7 @@ public class MainController {
     })
 
     @RequestMapping("/all")
+
     public JSONObject findAll() {
 
         List<User> users = userMapper1.findAll();
@@ -56,7 +58,7 @@ public class MainController {
 
     }
 
-    @ApiAction(name = "查询分页数据", order = 2, mapping = "page", method = Method.GET)
+    @ApiAction(name = "查询分页数据", mapping = "page", method = Method.GET)
     @ApiReqParams(type = ParamType.JSON, value = {@ApiParam(value = ReqPageInfo.class)})
     @ApiRespParams({
             @ApiParam(name = "code", dataType = DataType.NUMBER, defaultValue = "0", description = "状态编码"),
@@ -78,8 +80,6 @@ public class MainController {
 
     }
 
-
-
     @RequestMapping("/find")
     public JSONObject findOne(Integer id) {
         User user = userMapper1.findOne(id);
@@ -90,6 +90,7 @@ public class MainController {
             e.printStackTrace();
         }
         return json;
+
     }
 
     @RequestMapping("/add")
@@ -102,6 +103,7 @@ public class MainController {
             e.printStackTrace();
         }
         return json;
+
     }
 
     @RequestMapping("/update")
